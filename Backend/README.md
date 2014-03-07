@@ -1,3 +1,3 @@
 SportsApp - Backend
 ====
-Remote scores for your school's sports
+Remote scores for your school's sports 
