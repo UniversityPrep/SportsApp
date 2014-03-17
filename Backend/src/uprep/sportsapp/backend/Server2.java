@@ -31,18 +31,22 @@ public class Server2 extends WebSocketServer {
 
 	@Override
 	public void onClose( WebSocket conn, int code, String reason, boolean remote ) {
-		this.sendToAll( conn + " has left the room!" );
 		System.out.println( conn + " has left the room!" );
 	}
 
 	@Override
 	public void onMessage( WebSocket conn, String message ) {
-		this.sendToAll( message );
-		System.out.println( conn + ": " + message );
+		if (isAuthenticated()) {
+			System.out.println( conn + ": " + message );
+		}
 	}
-	
+
 	public void onFragment( WebSocket conn, Framedata fragment ) {
 		System.out.println( "received fragment: " + fragment );
+	}
+
+	private boolean isAuthenticated() {
+		return false; // TODO - Check authenticated request.
 	}
 
 	public static void main( String[] args ) throws InterruptedException , IOException {
