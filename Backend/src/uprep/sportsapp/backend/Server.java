@@ -15,19 +15,23 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 
- class RequestServer {
-	
-	int port = 80;
-	
-  public void start() throws IOException {
-    InetSocketAddress addr = new InetSocketAddress(port);
-    HttpServer server = HttpServer.create(addr, 0);
+class RequestServer {
+	 
+	 int port;
+	 
+	 public RequestServer(int port) {
+		 this.port = port;
+	 }
+	 
+	 public void start() throws IOException {
+		 InetSocketAddress addr = new InetSocketAddress(this.port);
+		 HttpServer server = HttpServer.create(addr, 0);
 
-    server.createContext("/", new MyHandler());
-    server.setExecutor(Executors.newCachedThreadPool());
-    server.start();
-    System.out.println("Server is listening on port " + port );
-  }
+		 server.createContext("/", new MyHandler());
+		 server.setExecutor(Executors.newCachedThreadPool());
+		 server.start();
+		 System.out.println("Server is listening on port " + this.port );
+	 }
 }
 
 class MyHandler implements HttpHandler {
@@ -63,7 +67,7 @@ public class Server
 	public static void main(String[] args) throws IOException
 	{
 		//TODO add exception handling instead of passing it on to the vm. 
-		RequestServer server = new RequestServer();
+		RequestServer server = new RequestServer(80); // Start port on 80
 		server.start();
 	}
 }
