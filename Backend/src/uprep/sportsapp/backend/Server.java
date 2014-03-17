@@ -30,7 +30,7 @@ class RequestServer {
 		server.createContext("/", new MyHandler());
 		server.setExecutor(Executors.newCachedThreadPool());
 		server.start();
-		System.out.println("Server is listening on port " + this.port );
+		System.out.println("Server is listening on port " + this.port);
 	}
 }
 
