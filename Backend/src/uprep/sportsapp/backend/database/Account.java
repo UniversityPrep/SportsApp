@@ -1,5 +1,8 @@
 package uprep.sportsapp.backend.database;
 
+import java.security.MessageDigest;
+import java.security.SecureRandom;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -15,10 +18,36 @@ public class Account {
 	@DatabaseField (canBeNull = false)
 	private boolean admin;
 	
+	@DatabaseField (canBeNull = false)
+	private byte[] passwordSalt;
+	
 	public Account(String name, String password, boolean admin) {
 		this.name = name;
-		this.password = password;
 		this.admin = admin;
+		this.setPassword(password);
+	}
+	
+	public void setPassword(String password) {
+		this.passwordSalt = this.generateRandomSalt();
+		this.password = hashPass(password + passwordSalt).toString();
+	}
+	
+	private byte[] hashPass(String password) { 
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("SHA-256");
+			return digest.digest(password.getBytes("UTF-8"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	private byte[] generateRandomSalt() {
+		SecureRandom random = new SecureRandom();
+		byte bytes[] = new byte[20];
+		random.nextBytes(bytes);
+		return bytes;
 	}
 	
 	/**
