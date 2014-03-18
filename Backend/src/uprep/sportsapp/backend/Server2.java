@@ -78,7 +78,7 @@ public class Server2 extends WebSocketServer {
 	@Override
 	public void onError( WebSocket conn, Exception ex ) {
 		ex.printStackTrace();
-		if( conn != null ) {
+		if(conn != null) {
 			// some errors like port binding failed may not be assignable to a specific websocket
 		}
 	}
