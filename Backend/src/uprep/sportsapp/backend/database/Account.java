@@ -27,7 +27,7 @@ public class Account {
 		this.setPassword(password);
 	}
 	
-	public void setPassword(String password) {
+	private void setPassword(String password) {
 		this.passwordSalt = this.generateRandomSalt();
 		this.password = hashPass(password + passwordSalt).toString();
 	}
