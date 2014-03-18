@@ -93,11 +93,11 @@ public class Server2 extends WebSocketServer {
 	 *             
 	 * A use for this would be to broadcast the latest updates automatically the moment they are received.
 	 */
-	public void sendToAll( String text ) {
+	public void sendToAll(String text) {
 		Collection<WebSocket> con = connections();
-		synchronized ( con ) {
-			for( WebSocket c : con ) {
-				c.send( text );
+		synchronized (con) {
+			for(WebSocket c : con) {
+				c.send(text);
 			}
 		}
 	}
