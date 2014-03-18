@@ -15,7 +15,7 @@ import org.java_websocket.server.WebSocketServer;
 
 public class Server2 extends WebSocketServer {
 
-	public Server2( int port ) throws UnknownHostException {
+	public Server2(int port) throws UnknownHostException {
 		super(new InetSocketAddress(port));
 	}
 
@@ -49,7 +49,7 @@ public class Server2 extends WebSocketServer {
 		return false; // TODO - Check authenticated request.
 	}
 
-	public static void main(String[] args) throws InterruptedException , IOException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		WebSocketImpl.DEBUG = true;
 		int port = 0;
 		try {
@@ -64,7 +64,7 @@ public class Server2 extends WebSocketServer {
 		BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			String in = sysin.readLine();
-			s.sendToAll( in );
+			s.sendToAll(in);
 			if(in.equals("exit")) {
 				s.stop();
 				break;
@@ -76,7 +76,7 @@ public class Server2 extends WebSocketServer {
 		}
 	}
 	@Override
-	public void onError( WebSocket conn, Exception ex ) {
+	public void onError(WebSocket conn, Exception ex) {
 		ex.printStackTrace();
 		if(conn != null) {
 			// some errors like port binding failed may not be assignable to a specific websocket
