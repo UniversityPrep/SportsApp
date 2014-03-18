@@ -16,64 +16,59 @@ import org.java_websocket.server.WebSocketServer;
 public class Server2 extends WebSocketServer {
 
 	public Server2( int port ) throws UnknownHostException {
-		super( new InetSocketAddress( port ) );
+		super(new InetSocketAddress(port));
 	}
 
 	public Server2( InetSocketAddress address ) {
-		super( address );
+		super(address);
 	}
 
 	@Override
 	public void onOpen( WebSocket conn, ClientHandshake handshake ) {
-		this.sendToAll( "new connection: " + handshake.getResourceDescriptor() );
-		System.out.println( conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!" );
+		this.sendToAll("new connection: " + handshake.getResourceDescriptor());
+		System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
 	}
 
 	@Override
-	public void onClose( WebSocket conn, int code, String reason, boolean remote ) {
-		System.out.println( conn + " has left the room!" );
+	public void onClose(WebSocket conn, int code, String reason, boolean remote) {
+		System.out.println(conn + " has left the room!");
 	}
 
 	@Override
-	public void onMessage( WebSocket conn, String message ) {
+	public void onMessage(WebSocket conn, String message) {
 		if (isAuthenticated()) {
-			System.out.println( conn + ": " + message );
+			System.out.println(conn + ": " + message);
 		}
 	}
 
-	public void onFragment( WebSocket conn, Framedata fragment ) {
-		System.out.println( "received fragment: " + fragment );
+	public void onFragment(WebSocket conn, Framedata fragment) {
+		System.out.println("received fragment: " + fragment);
 	}
 
 	private boolean isAuthenticated() {
 		return false; // TODO - Check authenticated request.
 	}
 
-	public static void main( String[] args ) throws InterruptedException , IOException {
+	public static void main(String[] args) throws InterruptedException , IOException {
 		WebSocketImpl.DEBUG = true;
 		int port = 0;
-		if (args.length > 0) {
-			port = Integer.parseInt(args[1]); // What is considered the argument?
-		}
-		else {
-			port = 8080; // 843 flash policy port
-		}
 		try {
-			port = Integer.parseInt( args[ 0 ] );
-		} catch ( Exception ex ) {
+			port = Integer.parseInt(args[0]);
+		} catch (Exception ex) {
+			port = 8080;
 		}
-		Server2 s = new Server2( port );
+		Server2 s = new Server2(port);
 		s.start();
-		System.out.println( "ChatServer started on port: " + s.getPort() );
+		System.out.println("SportsApp Started: " + s.getPort());
 
-		BufferedReader sysin = new BufferedReader( new InputStreamReader( System.in ) );
-		while ( true ) {
+		BufferedReader sysin = new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
 			String in = sysin.readLine();
 			s.sendToAll( in );
-			if( in.equals( "exit" ) ) {
+			if(in.equals("exit")) {
 				s.stop();
 				break;
-			} else if( in.equals( "restart" ) ) {
+			} else if(in.equals("restart")) {
 				s.stop();
 				s.start();
 				break;
