@@ -19,12 +19,12 @@ public class Server2 extends WebSocketServer {
 		super(new InetSocketAddress(port));
 	}
 
-	public Server2( InetSocketAddress address ) {
+	public Server2(InetSocketAddress address) {
 		super(address);
 	}
 
 	@Override
-	public void onOpen( WebSocket conn, ClientHandshake handshake ) {
+	public void onOpen(WebSocket conn, ClientHandshake handshake) {
 		this.sendToAll("new connection: " + handshake.getResourceDescriptor());
 		System.out.println(conn.getRemoteSocketAddress().getAddress().getHostAddress() + " entered the room!");
 	}
