@@ -19,25 +19,11 @@ body {
   }
 }
 
-@media (min-width: 992px) {
-  body {
-    padding: 0;
-  }
-  .navbar {
-    right: auto;
-    background: none;
-    border: none;
-  }
-}
-
 .game {
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
     padding: 5px 10px;
     background-color: #eee;
     height: 70px;
     cursor: pointer;
-    margin: 0 -15px;
 }
 .game:active {
     background-color: #ddd;
@@ -68,13 +54,41 @@ body {
 .game .chevron .fa {
     line-height: 60px;
 }
-.container {
+section {
     width: 100%;
     position: absolute;
-    top: 51px;
+    //top: 51px;
     background-color: white;
+    top: 0;
     bottom: 0;
 }
-.container.detail {
+section.detail {
     left: 100%;
+}
+h1,h2,h3,h4,h5,h6,.navmenu-brand,* {
+    font-family: 'Open Sans';
+}
+@media (min-width: 768px) {
+  body {
+    padding: 0;
+  }
+  .navbar {
+    right: auto;
+    background: none;
+    border: none;
+  }
+  .game {
+      border-radius: 4px;
+      border: 1px solid #ccc;
+  }
+}
+@media (max-width: 768px){
+    .game {
+        margin: 0 -15px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+  section {
+    top: 51px;
+  }
 }

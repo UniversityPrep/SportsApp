@@ -26,7 +26,10 @@ Game.prototype.toAbstract = function(){
 }
 Game.prototype.toDetail = function(){
     var html =
-        '<div class="page-header"><h3>'+this.sport+'</h3></div>';
+        '<div class="page-header"><h3>'+this.sport+'</h3></div>' +
+        'UPrep vs. '+this.opponent+'<br>'+
+        this.time+'<br>'+
+        this.location;
     return html;
 }
 
@@ -51,11 +54,12 @@ $(document).ready(function(){
     updateOverview();
     $(".upcoming, .inprogress").on("click", ".game", function(e){
         var game = $(this).data().game;
-        $(".container.detail").html(game.toDetail()).animate({left: 0}, 200);
+        $("section.detail .container").html(game.toDetail());
+        $("section.detail").animate({left: 0}, 200);
     });
     $("[href=#overview]").click(function(){
-        $(".container.detail").animate({left: window.innerWidth},200, function(){
-            $(".container.detail").css({left: ''});
+        $("section.detail").animate({left: window.innerWidth},200, function(){
+            $("section.detail").css({left: ''});
         });
     });
 });
